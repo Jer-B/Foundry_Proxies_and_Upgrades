@@ -19,7 +19,6 @@ coverage.log
 .prettierignore
 .prettierrc
 debug.log
-inspect_storage.log
 lcov.info
 .keystore
 remappings.txt
