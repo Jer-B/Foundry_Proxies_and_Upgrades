@@ -1,66 +1,121 @@
-## Foundry
+<!-- @format -->
+# English README　[Jump to Japanese Version](#japanese)
+<!--
+# Preview
+For an easy interaction with the contract use abi.ninja website.
+Here is a link to the contract loaded on it: [Foundry Stablecoin contract]()
 
-**Foundry is a blazing fast, portable and modular toolkit for Ethereum application development written in Rust.**
+Click on function on the left to add them in the center of the page and interact with them.
+- Functions under the 'READ' category are for getting actual values.
+- Functions under the 'Write' category are for inserting new data.
 
-Foundry consists of:
+- NOTE: The above contract is deployed on the Sepolia Testnet, so testnet funds are required for interacting with it.
+-->
 
--   **Forge**: Ethereum testing framework (like Truffle, Hardhat and DappTools).
--   **Cast**: Swiss army knife for interacting with EVM smart contracts, sending transactions and getting chain data.
--   **Anvil**: Local Ethereum node, akin to Ganache, Hardhat Network.
--   **Chisel**: Fast, utilitarian, and verbose solidity REPL.
 
-## Documentation
+# Foundry UUPS Upgradeable Contracts
 
-https://book.getfoundry.sh/
 
-## Usage
+<!-- Contract is deployed at 0xxxx
+[View on Sepolia]()
+-->
 
-### Build
+1. This is for demo purposes only. Upgradeable contracts are a menance and in general should be avoided for 
 
-```shell
-$ forge build
+I used the 32 hours long video from Cyfrin Foundry Blockchain course to learn about Foundry.  
+[Cyfrin Foundry](https://github.com/Cyfrin/foundry-full-course-f23)
+
+
+
+## Requirements
+
+- [git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git)
+  - You'll know you did it right if you can run `git --version` and you see a response like `git version x.x.x`
+- [foundry](https://getfoundry.sh/)
+  - You'll know you did it right if you can run `forge --version` and you see a response like `forge 0.2.0 (816e00b 2023-03-16T00:05:26.396218Z)`
+
+## Quickstart
+
+```
+git clone https://github.com/Jer-B/Foundry_Proxies_and_Upgrades
+cd Foundry_Proxies_and_Upgrades
+forge build
 ```
 
-### Test
 
-```shell
-$ forge test
+## Start a local node
+
+```
+make anvil
 ```
 
-### Format
+## Deploy
 
-```shell
-$ forge fmt
+This will default to your local node. You need to have it running in another terminal in order for it to deploy.
+
+```
+make deploy
 ```
 
-### Gas Snapshots
+## Testing
 
-```shell
-$ forge snapshot
+```
+forge test
 ```
 
-### Anvil
+### Test Coverage
 
-```shell
-$ anvil
+```
+forge coverage
 ```
 
-### Deploy
+and for coverage based testing: 
 
-```shell
-$ forge script script/Counter.s.sol:CounterScript --rpc-url <your_rpc_url> --private-key <your_private_key>
+```
+forge coverage --report debug
 ```
 
-### Cast
 
-```shell
-$ cast <subcommand>
+# Deployment to a testnet or mainnet
+
+1. Setup environment variables
+
+You'll want to set your `alchemy_RPC_sepolia` and `PRIVATE_KEY_TESTNET` as environment variables. You can add them to a `.env` file, similar to what you see in `.env.example`.
+
+- `PRIVATE_KEY_TESTNET`: The private key of your account (like from [metamask](https://metamask.io/)). **NOTE:** FOR DEVELOPMENT, PLEASE USE A KEY THAT DOESN'T HAVE ANY REAL FUNDS ASSOCIATED WITH IT.
+  - You can [learn how to export it here](https://metamask.zendesk.com/hc/en-us/articles/360015289632-How-to-Export-an-Account-Private-Key).
+- `alchemy_RPC_sepolia`: This is url of the sepolia testnet node you're working with. You can get setup with one for free from [Alchemy](https://alchemy.com/?a=673c802981)
+
+Optionally, add your `ETHERSCAN_API_KEY` if you want to verify your contract on [Etherscan](https://etherscan.io/).
+
+1. Get testnet ETH
+
+Head over to [faucets.chain.link](https://faucets.chain.link/) and get some testnet ETH. You should see the ETH show up in your metamask.
+
+
+2. Deploy
+
+```
+make deploy ARGS="--network sepolia"
 ```
 
-### Help
 
-```shell
-$ forge --help
-$ anvil --help
-$ cast --help
+## Estimate gas
+
+You can estimate how much gas things cost by running:
+
 ```
+forge snapshot
+```
+
+And you'll see and output file called `.gas-snapshot`
+
+
+# Formatting
+
+
+To run code formatting:
+```
+forge fmt
+```
+
